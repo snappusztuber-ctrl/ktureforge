@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>KTU Student Portal</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f3f6fb;
+            color: #263445;
+        }
+
+        .navbar {
+            background: #172554;
+            color: white;
+            padding: 18px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .navbar h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .nav-links button {
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 10px 12px;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .nav-links button:hover,
+        .nav-links button.active {
+            background: #334780;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 25px auto;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .welcome {
+            background: linear-gradient(120deg, #ffffff, #e8f1ff);
+            padding: 30px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            box-shadow: 0 3px 12px #0000000d;
+        }
+
+        .welcome h1 {
+            color: #173b70;
+            margin-top: 0;
+        }
+
+        .student-info {
+            background: #e3edfa;
+            padding: 20px;
+            border-radius: 10px;
+            line-height: 1.9;
+        }
+
+        .section-title {
+            color: #173b70;
+            margin: 30px 0 18px;
+        }
+
+        .notifications,
+        .card,
+        .content-panel {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #dce5ef;
+            box-shadow: 0 3px 12px #0000000a;
+        }
+
+        .notifications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .notifications-header h2 {
+            margin: 0;
+            color: #173b70;
+        }
+
+        .latest-label {
+            background: #e8f1ff;
+            color: #173b70;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .notification-item {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+            padding: 17px 0;
+            border-bottom: 1px solid #e5eaf0;
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-type {
+            min-width: 75px;
+            text-align: center;
+            padding: 7px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .exam-tag {
+            background: #fff0d6;
+            color: #925700;
+        }
+
+        .result-tag {
+            background: #e0f7e9;
+            color: #167344;
+        }
+
+        .academic-tag {
+            background: #e5edff;
+            color: #244caa;
+        }
+
+        .general-tag {
+            background: #f1e8ff;
+            color: #7138a5;
+        }
+
+        .notification-item h3 {
+            margin: 0 0 7px;
+            font-size: 16px;
+        }
+
+        .notification-item p {
+            margin: 0;
+            color: #64748b;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .card h2 {
+            color: #173b70;
+            margin-top: 0;
+        }
+
+        .card p {
+            line-height: 1.6;
+            color: #64748b;
+        }
+
+        .primary-button {
+            background: #2458a6;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .primary-button:hover {
+            background: #173b70;
+        }
+
+        .content-panel {
+            margin-top: 20px;
+        }
+
+        .content-panel h2 {
+            color: #173b70;
+            margin-top: 0;
+        }
+
+        .form-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        select,
+        input {
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            max-width: 100%;
+        }
+
+        .info-message {
+            background: #edf5ff;
+            border-left: 4px solid #3974c5;
+            padding: 14px;
+            margin-top: 18px;
+            border-radius: 5px;
+            line-height: 1.6;
+        }
+
+        .results-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+            gap: 20px;
+            align-items: start;
+        }
+
+        .grade-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .grade-list li {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5eaf0;
+        }
+
+        .grade-list li:last-child {
+            border-bottom: none;
+        }
+
+        .grade-letter {
+            font-weight: bold;
+            color: #173b70;
+        }
+
+        .grade-description {
+            text-align: right;
+            color: #475569;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 13px;
+        }
+
+        @media (max-width: 700px) {
+            .navbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .dashboard,
+            .results-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome {
+                padding: 22px;
+            }
+
+            .notification-item {
+                gap: 10px;
+            }
+
+            .notification-type {
+                min-width: 62px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top Navigation -->
+    <header class="navbar">
+        <h2>KTU Student Portal</h2>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <button class="active" data-page="home">Home</button>
+            <button data-page="exams">Exam Corner</button>
+            <button data-page="results">Results</button>
+            <button data-page="notifications">Notifications</button>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <!-- HOME PAGE -->
+        <section id="home" class="page active">
+
+            <section class="welcome">
+                <div>
+                    <h1>Welcome, Student! 👋</h1>
+                    <p>Your academic journey, all in one place.</p>
+                </div>
+
+                <div class="student-info">
+                    <h3>Student Details</h3>
+                    <p><strong>Name:</strong> Your Name</p>
+                    <p><strong>Register No:</strong> Your Register Number</p>
+                    <p><strong>Course:</strong> B.Tech</p>
+                    <p><strong>Semester:</strong> Your Semester</p>
+                    <p><strong>Academic Year:</strong> 2026–2027</p>
+                </div>
+            </section>
+
+            <!-- Dashboard Cards: unchanged -->
+            <section class="dashboard">
+
+                <article class="card">
+                    <h2>📝 Exam Corner</h2>
+                    <p>Find examination schedules, registration information
+                       and other examination-related updates.</p>
+                    <button class="primary-button" data-go="exams">
+                        View Exam Details
+                    </button>
+                </article>
+
+                <article class="card">
+                    <h2>📊 Results</h2>
+                    <p>Access the semester grade-card section and understand
+                       the university grading system.</p>
+                    <button class="primary-button" data-go="results">
+                        View Results
+                    </button>
+                </article>
+
+                <article class="card">
+                    <h2>📚 Academic Information</h2>
+                    <p>Keep academic information, semester details and
+                       important student resources organised.</p>
+                    <button class="primary-button" data-go="notifications">
+                        View Updates
+                    </button>
+                </article>
+
+                <article class="card">
+                    <h2>🔔 Latest Notifications</h2>
+                    <p>Find examination, result and general announcements
+                       in one convenient place.</p>
+                    <button class="primary-button" data-go="notifications">
+                        All Notifications
+                    </button>
+                </article>
+
+            </section>
+        </section>
+
+
+        <!-- EXAM CORNER PAGE -->
+        <section id="exams" class="page">
+
+            <h1>📝 Exam Corner</h1>
+            <p>Find examination information in one easy-to-use place.</p>
+
+            <section class="content-panel">
+                <h2>My Examinations</h2>
+
+                <div class="form-row">
+                    <label for="exam-year"><strong>Academic Year:</strong></label>
+
+                    <select id="exam-year">
+                        <option value="2026-2027">2026–2027</option>
+                        <option value="2025-2026">2025–2026</option>
+                        <option value="2024-2025">2024–2025</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label for="exam-type"><strong>Examination Type:</strong></label>
+
+                    <select id="exam-type">
+                        <option value="">Select examination type</option>
+                        <option>Regular Examination</option>
+                        <option>Supplementary Examination</option>
+                        <option>Improvement Examination</option>
+                    </select>
+                </div>
+
+                <button class="primary-button" id="exam-search">
+                    Search Examinations
+                </button>
+
+                <div id="exam-message" class="info-message" aria-live="polite">
+                    Select an examination type to view the relevant section.
+                    Official examination schedules should be verified through KTU.
+                </div>
+            </section>
+
+            <!-- Examination Notifications: retained -->
+            <h2 class="section-title">🔔 Examination Notifications</h2>
+
+            <section class="notifications">
+                <div class="notification-item">
+                    <span class="notification-type exam-tag">EXAM</span>
+                    <div>
+                        <h3>Exam Timetable Updates</h3>
+                        <p>Check official university announcements for the
+                           latest examination timetable.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type academic-tag">NOTICE</span>
+                    <div>
+                        <h3>Examination Registration</h3>
+                        <p>Check the official portal for examination
+                           registration dates and instructions.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type general-tag">INFO</span>
+                    <div>
+                        <h3>Examination Guidelines</h3>
+                        <p>Refer to official university instructions for
+                           examination rules and related updates.</p>
+                    </div>
+                </div>
+            </section>
+
+            <button class="primary-button" data-go="home">
+                ← Back to Home
+            </button>
+
+        </section>
+
+
+        <!-- RESULTS PAGE -->
+        <section id="results" class="page">
+
+            <h1>📊 Examination Results</h1>
+            <p>Find your semester grade-card information and understand grades.</p>
+
+            <div class="results-layout">
+
+                <section class="content-panel">
+                    <h2>Semester Grade Card</h2>
+
+                    <div class="form-row">
+                        <label for="semester"><strong>Semester:</strong></label>
+
+                        <select id="semester">
+                            <option value="">Select semester</option>
+                            <option>Semester 1</option>
+                            <option>Semester 2</option>
+                            <option>Semester 3</option>
+                            <option>Semester 4</option>
+                            <option>Semester 5</option>
+                            <option>Semester 6</option>
+                            <option>Semester 7</option>
+                            <option>Semester 8</option>
+                        </select>
+                    </div>
+
+                    <button class="primary-button" id="result-search">
+                        Search Results
+                    </button>
+
+                    <div id="result-message" class="info-message" aria-live="polite">
+                        Select your semester to continue. This demonstration
+                        does not retrieve actual examination results.
+                    </div>
+                </section>
+
+                <!-- Grade Details: retained -->
+                <aside class="content-panel">
+                    <h2>Grade Details</h2>
+                    <p>Understand what each grade means.</p>
+
+                    <ul class="grade-list">
+                        <li>
+                            <span class="grade-letter">S</span>
+                            <span class="grade-description">Outstanding</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">A+</span>
+                            <span class="grade-description">Excellent</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">A</span>
+                            <span class="grade-description">Very Good</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">B+</span>
+                            <span class="grade-description">Good</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">B</span>
+                            <span class="grade-description">Above Average</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">C</span>
+                            <span class="grade-description">Average</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">P</span>
+                            <span class="grade-description">Pass</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">F</span>
+                            <span class="grade-description">Fail</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">FE</span>
+                            <span class="grade-description">Failed eligibility criteria</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">I</span>
+                            <span class="grade-description">Course incomplete</span>
+                        </li>
+                        <li>
+                            <span class="grade-letter">LP</span>
+                            <span class="grade-description">Low Pass</span>
+                        </li>
+                    </ul>
+
+                    <p style="font-size: 12px; color: #64748b;">
+                        Grade descriptions are provided as a guide.
+                        Refer to the applicable KTU regulations for official meanings.
+                    </p>
+                </aside>
+
+            </div>
+
+            <!-- Result Notifications: retained -->
+            <h2 class="section-title">🔔 Result Notifications</h2>
+
+            <section class="notifications">
+                <div class="notification-item">
+                    <span class="notification-type result-tag">RESULT</span>
+                    <div>
+                        <h3>Semester Results</h3>
+                        <p>Check official KTU announcements for publication
+                           of semester examination results.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type academic-tag">GRADE</span>
+                    <div>
+                        <h3>Semester Grade Cards</h3>
+                        <p>Visit the official results portal for available
+                           grade cards and academic records.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type general-tag">INFO</span>
+                    <div>
+                        <h3>Result-related Announcements</h3>
+                        <p>Check official notices for result publication
+                           and related university procedures.</p>
+                    </div>
+                </div>
+            </section>
+
+            <button class="primary-button" data-go="home">
+                ← Back to Home
+            </button>
+
+        </section>
+
+
+        <!-- ALL NOTIFICATIONS PAGE: retained -->
+        <section id="notifications" class="page">
+
+            <h1>🔔 All Notifications</h1>
+            <p>Important student announcements collected in one place.</p>
+
+            <section class="notifications">
+
+                <div class="notification-item">
+                    <span class="notification-type exam-tag">EXAM</span>
+                    <div>
+                        <h3>Examination Notifications</h3>
+                        <p>Timetables, registration notices and examination
+                           guidelines. Check official KTU announcements.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type result-tag">RESULT</span>
+                    <div>
+                        <h3>Result Notifications</h3>
+                        <p>Semester results, grade cards and result-related
+                           announcements. Verify publication status officially.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type academic-tag">ACADEMIC</span>
+                    <div>
+                        <h3>Academic Announcements</h3>
+                        <p>Academic calendars, semester schedules and other
+                           academic information.</p>
+                    </div>
+                </div>
+
+                <div class="notification-item">
+                    <span class="notification-type general-tag">GENERAL</span>
+                    <div>
+                        <h3>General University Notices</h3>
+                        <p>University announcements and other student-related
+                           information.</p>
+                    </div>
+                </div>
+
+            </section>
+
+            <button class="primary-button" data-go="home">
+                ← Back to Home
+            </button>
+
+        </section>
+
+    </main>
+
+    <footer>
+        KTU Student Portal Redesign · Student-friendly demonstration
+        <br>
+        Not an official KTU website.
+    </footer>
+
+    <script>
+        const navigationButtons = document.querySelectorAll("[data-page]");
+        const pages = document.querySelectorAll(".page");
+
+        function showPage(pageId) {
+            const selectedPage = document.getElementById(pageId);
+
+            if (!selectedPage) return;
+
+            pages.forEach(function(page) {
+                page.classList.remove("active");
+            });
+
+            selectedPage.classList.add("active");
+
+            navigationButtons.forEach(function(button) {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.page === pageId
+                );
+            });
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        navigationButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
+                showPage(button.dataset.page);
+            });
+        });
+
+        document.querySelectorAll("[data-go]").forEach(function(button) {
+            button.addEventListener("click", function() {
+                showPage(button.dataset.go);
+            });
+        });
+
+        document.getElementById("exam-search").addEventListener("click", function() {
+            const examType = document.getElementById("exam-type").value;
+            const examYear = document.getElementById("exam-year").value;
+            const message = document.getElementById("exam-message");
+
+            if (!examType) {
+                message.textContent =
+                    "Please select an examination type first.";
+                return;
+            }
+
+            message.textContent =
+                "You selected " + examType + " for " + examYear +
+                ". Actual schedules must be checked on the official KTU portal.";
+        });
+
+        document.getElementById("result-search").addEventListener("click", function() {
+            const semester = document.getElementById("semester").value;
+            const message = document.getElementById("result-message");
+
+            if (!semester) {
+                message.textContent =
+                    "Please select a semester first.";
+                return;
+            }
+
+            message.textContent =
+                "You selected " + semester +
+                ". This demonstration cannot retrieve actual student results. " +
+                "Check the official KTU portal for published grade cards.";
+        });
+    </script>
+
+</body>
+</html>

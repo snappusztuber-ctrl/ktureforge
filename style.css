@@ -1,0 +1,207 @@
+/* ===== BASIC SETTINGS ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f6fb;
+    color: #263445;
+    line-height: 1.6;
+}
+
+/* ===== TOP NAVIGATION BAR ===== */
+.navbar {
+    background-color: #173b70;
+    color: white;
+    padding: 18px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.navbar h2 {
+    font-size: 22px;
+}
+
+.navbar nav {
+    display: flex;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.navbar a:hover {
+    color: #b9d8ff;
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    width: 90%;
+    max-width: 1150px;
+    margin: 30px auto;
+}
+
+/* ===== WELCOME SECTION ===== */
+.welcome {
+    background-color: white;
+    padding: 28px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.welcome h1 {
+    color: #173b70;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.welcome p {
+    color: #64748b;
+}
+
+/* ===== STUDENT INFORMATION ===== */
+.student-info {
+    background-color: #edf4ff;
+    padding: 20px;
+    border-radius: 10px;
+    min-width: 240px;
+}
+
+.student-info h3 {
+    color: #173b70;
+    margin-bottom: 10px;
+}
+
+.student-info p {
+    margin: 5px 0;
+    color: #263445;
+}
+
+/* ===== DASHBOARD CARDS ===== */
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+    margin-top: 25px;
+}
+
+.card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e1e8f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(23, 59, 112, 0.1);
+}
+
+.card h2 {
+    color: #173b70;
+    font-size: 21px;
+    margin-bottom: 12px;
+}
+
+.card p {
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    background-color: #245bb5;
+    color: white;
+    border: none;
+    padding: 11px 18px;
+    border-radius: 7px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #173b70;
+}
+
+/* ===== FEEDBACK SECTION ===== */
+.feedback {
+    background-color: white;
+    margin-top: 25px;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #e1e8f0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+}
+
+.feedback h2 {
+    color: #173b70;
+    margin-bottom: 10px;
+}
+
+.feedback p {
+    color: #64748b;
+    margin-bottom: 18px;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    text-align: center;
+    padding: 25px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ===== MOBILE-FRIENDLY DESIGN ===== */
+@media (max-width: 650px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navbar nav {
+        gap: 15px;
+    }
+
+    .container {
+        width: 94%;
+        margin: 20px auto;
+    }
+
+    .welcome {
+        padding: 20px;
+    }
+
+    .welcome h1 {
+        font-size: 23px;
+    }
+
+    .student-info {
+        width: 100%;
+    }
+
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
